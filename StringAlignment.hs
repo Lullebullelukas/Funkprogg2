@@ -90,8 +90,8 @@ optAlignments' xs ys = snd $ optAlign (length xs) (length ys)
                 
        where
          temp = [((fst (optAlign (i-1) (j-1))) + (score x y), attachTails x y $ snd (optAlign (i-1) (j-1))),
-                  ((fst (optAlign (i-1) j)) + scoreSpace, attachTails '-' y $ snd (optAlign (i-1) j)),
-                  ((fst (optAlign i (j-1))) + scoreSpace, attachTails x '-' $ snd (optAlign i (j-1)))]
+                  ((fst (optAlign (i-1) j)) + scoreSpace, attachTails x '-' $ snd (optAlign (i-1) j)),
+                  ((fst (optAlign i (j-1))) + scoreSpace, attachTails '-' y $ snd (optAlign i (j-1)))]
  
          points = maximum $ map fst temp 
          best = concat $ map snd [a | a <- temp, ((fst a) == points)] 
