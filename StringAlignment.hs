@@ -47,3 +47,21 @@ outputOptAlignments string1 string2 = do
  putStrLn $ foldl1 (++) (map (\(x,y) -> x ++ "\n" ++ y ++ "\n\n") result) 
     where 
      result = optAlignments string1 string2
+
+test = outputOptAlignments string1 string2
+
+similarityScore' xs ys = simScore (length xs) (length ys)
+  where
+    simScore i j = simTable!!i!!j
+    simTable = [[ simEntry i j | j<-[0..]] | i<-[0..] ]
+
+    simEntry i 0 = i*scoreSpace
+    simEntry 0 j = j*scoreSpace
+    simEntry i j =
+      maximum [(simScore (i-1) (j-1)) + (score x y),
+      simScore (i-1) j + scoreSpace,
+      simScore i (j-1) + scoreSpace]
+
+      where
+         x = xs!!(i-1)
+         y = ys!!(j-1)
